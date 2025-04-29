@@ -70,7 +70,7 @@ public class JuegoBatalla {
     public void mostrarGanador() {
         for (Robot robot : robots) {
             if (robot != null && robot.estaVivo()) {
-                System.out.println("\nEl ganador es: " + robot.getNombre());
+                System.out.println("El ganador es: " + robot.getNombre());
                 return;
             }
         }
@@ -81,14 +81,14 @@ public class JuegoBatalla {
         Scanner scanner = new Scanner(System.in);
         int cantidad;
         do {
-            System.out.println("Ingrese la cantidad de robots (mínimo 2, máximo 4): ");
+            System.out.println("Ingrese la cantidad de robots (mínimo 2, máximo 10): ");
             while (!scanner.hasNextInt()) {
                 System.out.println("ingrese un número válido.");
                 scanner.next(); 
             }
             cantidad = scanner.nextInt();
             scanner.nextLine(); 
-        } while (cantidad < 2 || cantidad > 4);
+        } while (cantidad < 2 || cantidad > 10);
         
 
         JuegoBatalla juego = new JuegoBatalla(cantidad);
