@@ -1,74 +1,101 @@
 package Laboratorio2;
-public class JuegoBatalla {
-    public static void main (String[] args){
-    import java.util.Scanner;
 
-// Atributos de la clase
+import java.util.Scanner;
+import java.util.Random;
+
+public class JuegoBatalla {
+//Atributo array
     private Robot[] robots;
 
-// Constructor de la clase
+// Constructor que inicializa el array de robots
     public JuegoBatalla(int cantidadRobots) {
         robots = new Robot[cantidadRobots];
     }
 
-// Método para llenar el array de robots pidiendo datos al usuario
-    public void crearRobots() {
-        Scanner scanner = new Scanner(System.in);
-
+// Método para crear los robots y llenar el array
+    public void crearRobots(Scanner scanner) {
         for (int i = 0; i < robots.length; i++) {
-            System.out.println("Ingrese el nombre del Robot " + (i + 1));
+            System.out.println("Ingrese el nombre del Robot " + (i + 1) + ":");
             String nombre = scanner.nextLine();
+            int puntosVida;
+            do {
+                System.out.println("Ingrese los puntos de vida (50-100) del Robot " + (i + 1) + ":");
+                puntosVida = scanner.nextInt();
+            } while (puntosVida < 50 || puntosVida > 100);
 
-            System.out.println("Ingrese los puntos de vida (50-100) del Robot " + (i + 1));
-            int puntosVida = scanner.nextInt();
-
-            System.out.println("Ingrese el ataque (10-20) del Robot" + (i + 1));
-            int ataque = scanner.nextInt();
-            scanner.nextLine();
-
-            
-    //Nuevo Robot y guardarlo en el array
+            int ataque;
+            do {
+                System.out.println("Ingrese el ataque (10-20) del Robot " + (i + 1) + ":");
+                ataque = scanner.nextInt();
+            } while (ataque < 10 || ataque > 20);
+            scanner.nextLine(); 
             robots[i] = new Robot(nombre, puntosVida, ataque);
         }
     }
 
-
-//Método iniciar Batalla
+// Método para iniciar la batalla entre robots
     public void iniciarBatalla() {
-        java.util.Random random = new java.util.Random();
+        Random random = new Random();
 
         while (contarRobotsVivos() > 1) {
             for (int i = 0; i < robots.length; i++) {
                 if (robots[i] != null && robots[i].estaVivo()) {
                     int objetivo;
-
-                    // Elegir un robot aleatorio que sea diferente al actual
                     do {
                         objetivo = random.nextInt(robots.length);
                     } while ((objetivo == i) || (robots[objetivo] == null) || (!robots[objetivo].estaVivo()));
 
-                    // El robot ataca al robot objetivo
                     robots[i].atacar(robots[objetivo]);
                     System.out.println(robots[i].getNombre() + " ataca a " + robots[objetivo].getNombre());
 
-                    // Este if es para ver si el robot objetivo murió
                     if (!robots[objetivo].estaVivo()) {
-                        System.out.println(robots[objetivo].getNombre() + " ha sido eliminado");
+                        System.out.println(robots[objetivo].getNombre() + " ha sido eliminado.");
                     }
                 }
             }
         }
     }
 
-//Este método muestra el ganador
-
+// Método para contar cuántos robots siguen vivos
+    private int contarRobotsVivos() {
+        int vivos = 0;
+        for (Robot robot : robots) {
+            if (robot != null && robot.estaVivo()) {
+                vivos++;
+            }
+        }
+        return vivos;
+    }
+// Método para mostrar el robot ganador
     public void mostrarGanador() {
-                for (int i = 0; i < robots.length; i++) {
-                    if (robots[i] != null && robots[i].estaVivo()) {
-                        System.out.println("El ganador es: " + robots[i].getNombre());
-                        return;
-                    }
-                }
+        for (Robot robot : robots) {
+            if (robot != null && robot.estaVivo()) {
+                System.out.println("\nEl ganador es: " + robot.getNombre());
+                return;
+            }
+        }
+    }
 
-            } 
+// Método main
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int cantidad;
+        do {
+            System.out.println("Ingrese la cantidad de robots (mínimo 2, máximo 4): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("ingrese un número válido.");
+                scanner.next(); 
+            }
+            cantidad = scanner.nextInt();
+            scanner.nextLine(); 
+        } while (cantidad < 2 || cantidad > 4);
+        
+
+        JuegoBatalla juego = new JuegoBatalla(cantidad);
+        juego.crearRobots(scanner);
+        juego.iniciarBatalla();
+        juego.mostrarGanador();
+        scanner.close();
+    }
 }
+

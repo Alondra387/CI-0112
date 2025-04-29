@@ -1,6 +1,6 @@
 package Laboratorio2;
 
-public class Robot {
+public class Robot{
     
 //Atributos de la clase 
 
