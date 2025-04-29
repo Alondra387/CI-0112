@@ -1,3 +1,4 @@
-Laboratorio/Tarea #2
+Repositorio de laboratorios
 
-En este laboratorio se desarrollará el programa "Simulador de batalla de robots", donde se aplicará programación orientada a objetos con arrays, además de practicar y familiarizarse con el uso de Git y GitHub para gestionar proyectos de programación.
+En este repositorio se estarán adjuntando en diferentes carpetas los laboratorios, tareas o evaluaciones 
+del curso Programación I siglas CI-0112.
