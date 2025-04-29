@@ -15,17 +15,17 @@ public class JuegoBatalla {
 // Método para crear los robots y llenar el array
     public void crearRobots(Scanner scanner) {
         for (int i = 0; i < robots.length; i++) {
-            System.out.println("Ingrese el nombre del Robot " + (i + 1) + ":");
+            System.out.println("Ingrese el nombre del Robot " + (i + 1) );
             String nombre = scanner.nextLine();
             int puntosVida;
             do {
-                System.out.println("Ingrese los puntos de vida (50-100) del Robot " + (i + 1) + ":");
+                System.out.println("Ingrese los puntos de vida (50-100) del Robot " + (i + 1) );
                 puntosVida = scanner.nextInt();
             } while (puntosVida < 50 || puntosVida > 100);
 
             int ataque;
             do {
-                System.out.println("Ingrese el ataque (10-20) del Robot " + (i + 1) + ":");
+                System.out.println("Ingrese el ataque (10-20) del Robot " + (i + 1) );
                 ataque = scanner.nextInt();
             } while (ataque < 10 || ataque > 20);
             scanner.nextLine(); 
@@ -77,20 +77,18 @@ public class JuegoBatalla {
     }
 
 // Método main
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int cantidad;
-        do {
-            System.out.println("Ingrese la cantidad de robots (mínimo 2, máximo 10): ");
-            while (!scanner.hasNextInt()) {
-                System.out.println("ingrese un número válido.");
-                scanner.next(); 
-            }
-            cantidad = scanner.nextInt();
-            scanner.nextLine(); 
-        } while (cantidad < 2 || cantidad > 10);
-        
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
 
+    System.out.println("Ingrese la cantidad de robots (mínimo 2, máximo 10): ");
+    int cantidad = scanner.nextInt();
+    scanner.nextLine(); 
+
+    while (cantidad < 2 || cantidad > 10) {
+        System.out.println("Número inválido. Intente nuevamente:");
+        cantidad = scanner.nextInt();
+        scanner.nextLine(); 
+    }
         JuegoBatalla juego = new JuegoBatalla(cantidad);
         juego.crearRobots(scanner);
         juego.iniciarBatalla();
