@@ -1,4 +1,4 @@
-package Laboratorio2;
+package Tarea1;
 
 public class Robot{
     

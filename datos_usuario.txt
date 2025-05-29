@@ -1,0 +1,4 @@
+Nombre: ana
+Email: abcd@pp
+Teléfono: 92901832
+Tipo de usuario: Cliente
